@@ -6,7 +6,7 @@ class BodyBuilder extends StatelessWidget {
   final APIRequestStatus apiRequestStatus;
   final Widget child;
   final VoidCallback onPressErrorWidget;
-  BodyBuilder(
+  const BodyBuilder(
       {required this.apiRequestStatus,
       required this.child,
       required this.onPressErrorWidget});
@@ -21,8 +21,7 @@ class BodyBuilder extends StatelessWidget {
       case APIRequestStatus.loading:
         return Center(
             child: CircularProgressIndicator(
-          color: Theme.of(context).accentColor
-        ));
+                color: Theme.of(context).accentColor));
       case APIRequestStatus.error:
         return MyErrorWidget(
           onRefresh: onPressErrorWidget,

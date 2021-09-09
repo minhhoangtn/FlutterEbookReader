@@ -4,20 +4,19 @@ import 'package:ebook_reader/networking/api.dart';
 import 'package:flutter/material.dart';
 
 class HomeProvider with ChangeNotifier {
-  Feed top=Feed();
-  Feed recent=Feed();
+  Feed top = Feed();
+  Feed recent = Feed();
   final api = Api();
   APIRequestStatus apiRequestStatus = APIRequestStatus.loading;
 
   Future<void> getFeeds() async {
     try {
-      Feed popular = await api.getCategory(Api.popularUrl);
+      final Feed popular = await api.getCategory(Api.popularUrl);
       setTop(popular);
-      Feed newRelease = await api.getCategory(Api.recentUrl);
+      final Feed newRelease = await api.getCategory(Api.recentUrl);
       setRecent(newRelease);
       setApiRequestStatus(APIRequestStatus.loaded);
     } catch (e) {
-      print(e);
       setApiRequestStatus(APIRequestStatus.error);
     }
   }
@@ -25,23 +24,22 @@ class HomeProvider with ChangeNotifier {
   Future<void> getFeedsWhenError() async {
     try {
       setApiRequestStatus(APIRequestStatus.loading);
-      Feed popular = await api.getCategory(Api.popularUrl);
+      final Feed popular = await api.getCategory(Api.popularUrl);
       setTop(popular);
-      Feed newRelease = await api.getCategory(Api.recentUrl);
+      final Feed newRelease = await api.getCategory(Api.recentUrl);
       setRecent(newRelease);
       setApiRequestStatus(APIRequestStatus.loaded);
     } catch (e) {
-      print(e);
       setApiRequestStatus(APIRequestStatus.error);
     }
   }
 
-  void setTop(value) {
+  void setTop(Feed value) {
     top = value;
     notifyListeners();
   }
 
-  void setRecent(value) {
+  void setRecent(Feed value) {
     recent = value;
     notifyListeners();
   }

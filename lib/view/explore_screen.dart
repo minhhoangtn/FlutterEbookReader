@@ -15,7 +15,7 @@ class ExploreScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Book Collections',
           style: TextStyle(fontSize: 25),
         ),
@@ -27,8 +27,8 @@ class ExploreScreen extends StatelessWidget {
           child: ListView.builder(
               itemCount: homeProvider.top.link?.length ?? 0,
               itemBuilder: (BuildContext context, int index) {
-                Link link = homeProvider.top.link![index];
-                if (index == 0)
+                final Link link = homeProvider.top.link![index];
+                if (index == 0) {
                   return Container(
                     height: 250,
                     child: Image.asset(
@@ -36,7 +36,8 @@ class ExploreScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   );
-                if (index < 10) return SizedBox();
+                }
+                if (index < 10) return const SizedBox();
                 return Padding(
                   padding: const EdgeInsets.only(left: 15),
                   child: Column(
@@ -47,12 +48,10 @@ class ExploreScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Flexible(
-                              child: Container(
-                                child: Text(
-                                  link.title!,
-                                  style: TextStyle(fontSize: 20),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                              child: Text(
+                                link.title!,
+                                style: const TextStyle(fontSize: 20),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             GestureDetector(
@@ -72,21 +71,21 @@ class ExploreScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       FutureBuilder<Feed?>(
                           future: Api().getCategory(link.href!),
                           builder: (context, snapshot) {
-                            Feed? genreFeed = snapshot.data;
+                            final Feed? genreFeed = snapshot.data;
                             if (snapshot.connectionState ==
                                     ConnectionState.waiting ||
-                                snapshot.hasError)
+                                snapshot.hasError) {
                               return Container(
                                   height: 200,
                                   child: Center(
                                       child: CircularProgressIndicator(
                                     color: Theme.of(context).accentColor,
                                   )));
-                            else
+                            } else {
                               return Container(
                                 height: 200,
                                 child: ListView.builder(
@@ -95,14 +94,16 @@ class ExploreScreen extends StatelessWidget {
                                     itemCount: genreFeed?.entry?.length ?? 0,
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      Entry entry = genreFeed!.entry![index];
+                                      final Entry entry =
+                                          genreFeed!.entry![index];
                                       return BookCard(
                                           entry: entry,
                                           imageUrl: entry.link![1].href!);
                                     }),
                               );
+                            }
                           }),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 );

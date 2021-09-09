@@ -17,7 +17,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller = PageController(initialPage: 0);
+    _controller = PageController();
   }
 
   @override
@@ -41,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: _controller,
         onPageChanged: _onPageChange,
         children: [

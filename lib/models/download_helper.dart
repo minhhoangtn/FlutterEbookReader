@@ -7,11 +7,11 @@ import 'package:sqflite/sqlite_api.dart';
 
 class DownloadDB {
   static Future<Database> dataBase() async {
-    Directory documentDirectory = await getApplicationDocumentsDirectory();
+    final Directory documentDirectory =
+        await getApplicationDocumentsDirectory();
     final dbPath = path.join(documentDirectory.path, 'download.db');
-    return await sql.openDatabase(dbPath, version: 1,
-        onCreate: (db, version) async {
-      return await db.execute(
+    return sql.openDatabase(dbPath, version: 1, onCreate: (db, version) async {
+      return db.execute(
           'CREATE TABLE download_books(id TEXT PRIMARY KEY, path TEXT, size REAL, imageUrl TEXT, title TEXT, author TEXT)');
     });
   }
@@ -28,7 +28,7 @@ class DownloadDB {
 
   static Future<Object?> getBookPath(String table, String id) async {
     final db = await DownloadDB.dataBase();
-    List<Map<String, Object?>> list =
+    final List<Map<String, Object?>> list =
         await db.query(table, where: 'id = ?', whereArgs: [id]);
     if (list.isEmpty) return null;
     return list[0]['path'];
@@ -36,7 +36,7 @@ class DownloadDB {
 
   static Future<List<Map<String, Object?>>> queryAll(String table) async {
     final db = await DownloadDB.dataBase();
-    List<Map<String, Object?>> list = await db.query(table);
+    final List<Map<String, Object?>> list = await db.query(table);
     return list;
   }
 }

@@ -26,21 +26,21 @@ class DetailsProvider with ChangeNotifier {
       setLoading(true);
       checkPinned();
       checkDownload();
-      Feed relatedBook = await api.getCategory(url);
+      final Feed relatedBook = await api.getCategory(url);
       setAuthorFeed(relatedBook);
       setLoading(false);
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
-  void checkPinned() async {
+  Future<void> checkPinned() async {
     await PinnedDB.check('favorite_books', entry.id!.t!.toString())
         ? setFav(true)
         : setFav(false);
   }
 
-  void addPinned() async {
+  Future<void> addPinned() async {
     await PinnedDB.insert('favorite_books', {
       'id': entry.id!.t!.toString(),
       'entry': jsonEncode(entry.toJson()),
@@ -49,21 +49,21 @@ class DetailsProvider with ChangeNotifier {
     checkPinned();
   }
 
-  void removePinned() async {
+  Future<void> removePinned() async {
     await PinnedDB.delete('favorite_books', entry.id!.t!.toString());
     checkPinned();
   }
 
   Future<String> getBookPath() async {
-    Object? bookPath =
+    final Object? bookPath =
         await DownloadDB.getBookPath('download_books', entry.id!.t!.toString());
     return bookPath.toString();
   }
 
-  void checkDownload() async {
-    Object? bookPath =
+  Future<void> checkDownload() async {
+    final Object? bookPath =
         await DownloadDB.getBookPath('download_books', entry.id!.t!.toString());
-    print(bookPath.toString());
+
     if (bookPath != null && await File(bookPath.toString()).exists()) {
       setDownload(true);
     } else {
@@ -72,27 +72,29 @@ class DetailsProvider with ChangeNotifier {
     }
   }
 
-  void addDownload(Map<String, Object> data) async {
+  Future<void> addDownload(Map<String, Object> data) async {
     await DownloadDB.insert('download_books', data);
     checkDownload();
   }
 
   Future<void> downloadFile(
       BuildContext context, String url, String bookName) async {
-    PermissionStatus status = await Permission.storage.request();
-    PermissionStatus status1 = await Permission.manageExternalStorage.request();
+    final PermissionStatus status = await Permission.storage.request();
+    final PermissionStatus status1 =
+        await Permission.manageExternalStorage.request();
 
     if (status.isGranted || status1.isGranted) {
-      var appDirectory = Platform.isAndroid
+      final appDirectory = Platform.isAndroid
           ? await getExternalStorageDirectory()
           : await getApplicationDocumentsDirectory();
 
-      String externalStoragePath = appDirectory!.path.split('Android')[0];
-      if (Platform.isAndroid)
+      final String externalStoragePath = appDirectory!.path.split('Android')[0];
+      if (Platform.isAndroid) {
         Directory(path.join(externalStoragePath, 'EbookReaderFlutter'))
-            .createSync(); //create file folder in external storage Android
+            .createSync();
+      } //create file folder in external storage Android
 
-      String bookPath = Platform.isAndroid
+      final String bookPath = Platform.isAndroid
           ? path.join(
               externalStoragePath, 'EbookReaderFlutter', '$bookName.epub')
           : path.join(appDirectory.path, '$bookName.epub');
@@ -106,7 +108,7 @@ class DetailsProvider with ChangeNotifier {
           addDownload({
             'id': entry.id!.t!.toString(),
             'path': bookPath,
-            'size': value,
+            'size': value as int,
             'imageUrl': entry.link![1].href!.toString(),
             'title': entry.title!.t!.toString(),
             'author': entry.author!.name!.t!.toString(),
@@ -116,27 +118,27 @@ class DetailsProvider with ChangeNotifier {
     }
   }
 
-  void setAuthorFeed(value) {
+  void setAuthorFeed(Feed value) {
     authorFeed = value;
     notifyListeners();
   }
 
-  void setEntry(value) {
+  void setEntry(Entry value) {
     entry = value;
     notifyListeners();
   }
 
-  void setLoading(value) {
+  void setLoading(bool value) {
     loading = value;
     notifyListeners();
   }
 
-  void setFav(value) {
+  void setFav(bool value) {
     pinned = value;
     notifyListeners();
   }
 
-  void setDownload(value) {
+  void setDownload(bool value) {
     downloaded = value;
     notifyListeners();
   }

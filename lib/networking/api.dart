@@ -14,7 +14,7 @@ class Api {
 
   Future<Feed> getCategory(String url) async {
     final res = await Dio().get(url).catchError((e) {
-      throw (e);
+      throw e as DioError;
     });
 
     Feed category;
@@ -22,10 +22,11 @@ class Api {
     if (res.statusCode == 200) {
       final xml2json = Xml2Json();
       xml2json.parse(res.data.toString());
-      var json = jsonDecode(xml2json.toGData());
-      category = Feed.fromJson(json['feed']);
-    } else
-      throw ('error ${res.statusCode}');
+      final json = jsonDecode(xml2json.toGData());
+      category = Feed.fromJson(json['feed'] as Map<String, dynamic>);
+    } else {
+      throw 'error ${res.statusCode}';
+    }
 
     return category;
   }

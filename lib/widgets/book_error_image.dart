@@ -16,9 +16,5 @@ class BookErrorImage extends StatelessWidget {
         ),
       ),
     );
-    // return Image.asset(
-    //   'images/book-placeholder.png',
-    //   fit: BoxFit.fill,
-    // );
   }
 }

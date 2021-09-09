@@ -7,11 +7,11 @@ import 'package:sqflite/sqlite_api.dart';
 
 class PinnedDB {
   static Future<Database> dataBase() async {
-    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    final Directory documentsDirectory =
+        await getApplicationDocumentsDirectory();
     final dbPath = path.join(documentsDirectory.path, 'favorites.db');
-    return await sql.openDatabase(dbPath, version: 1,
-        onCreate: (db, version) async {
-      return await db.execute(
+    return sql.openDatabase(dbPath, version: 1, onCreate: (db, version) async {
+      return db.execute(
           'CREATE TABLE favorite_books(id TEXT PRIMARY KEY, entry TEXT)');
     });
   }
@@ -28,17 +28,18 @@ class PinnedDB {
 
   static Future<bool> check(String table, String id) async {
     final db = await PinnedDB.dataBase();
-    List<Map<String, Object?>> list =
+    final List<Map<String, Object?>> list =
         await db.query(table, where: 'id = ?', whereArgs: [id]);
-    if (list.isNotEmpty)
+    if (list.isNotEmpty) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
   static Future<List<Map<String, Object?>>> queryAll(String table) async {
     final db = await PinnedDB.dataBase();
-    List<Map<String, Object?>> list = await db.query(table);
+    final List<Map<String, Object?>> list = await db.query(table);
     return list;
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DescriptionText extends StatefulWidget {
   final String text;
 
-  DescriptionText({required this.text});
+  const DescriptionText({required this.text});
 
   @override
   _DescriptionTextState createState() => _DescriptionTextState();
@@ -32,15 +32,14 @@ class _DescriptionTextState extends State<DescriptionText> {
     return Container(
         child: secondHalf.isEmpty
             ? Text(
-                '\t\t\t\t' + firstHalf,
-                style: TextStyle(fontSize: 15),
+                '\t\t\t\t$firstHalf',
+                style: const TextStyle(fontSize: 15),
               )
             : Column(
                 children: [
                   Text(
-                    '\t\t\t\t' +
-                        (flag ? (firstHalf + '...') : (firstHalf + secondHalf)),
-                    style: TextStyle(fontSize: 15),
+                    '\t\t\t\t${flag ? ('$firstHalf...') : (firstHalf + secondHalf)}',
+                    style: const TextStyle(fontSize: 15),
                     textAlign: TextAlign.justify,
                   ),
                   Row(

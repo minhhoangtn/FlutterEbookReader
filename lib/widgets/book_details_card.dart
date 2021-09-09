@@ -28,11 +28,10 @@ class BookDetailCard extends StatelessWidget {
                 )));
       },
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
         child: Container(
           height: 160,
           child: Row(
-            mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
@@ -54,7 +53,7 @@ class BookDetailCard extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 5),
+              const SizedBox(width: 5),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -63,11 +62,11 @@ class BookDetailCard extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                           text: title,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 17, fontWeight: FontWeight.bold)),
                       maxLines: 2,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
@@ -77,7 +76,7 @@ class BookDetailCard extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).accentColor),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       summary,
                       maxLines: 3,

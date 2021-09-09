@@ -10,7 +10,7 @@ class GenreScreen extends StatefulWidget {
   final String title;
   final String url;
 
-  GenreScreen({required this.title, required this.url});
+  const GenreScreen({required this.title, required this.url});
 
   @override
   _GenreScreenState createState() => _GenreScreenState();
@@ -43,12 +43,13 @@ class _GenreScreenState extends State<GenreScreen> {
               children: [
                 ListView.builder(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: genreProvider.items.length,
                   itemBuilder: (BuildContext context, int index) {
-                    Entry entry = genreProvider.items[index];
-                    if (index == genreProvider.items.length)
-                      return CircularProgressIndicator();
+                    final Entry entry = genreProvider.items[index] as Entry;
+                    if (index == genreProvider.items.length) {
+                      return const CircularProgressIndicator();
+                    }
                     return BookDetailCard(
                         entry: entry,
                         imageUrl: entry.link![1].href!,
@@ -57,17 +58,18 @@ class _GenreScreenState extends State<GenreScreen> {
                         summary: entry.summary!.t!);
                   },
                 ),
-                SizedBox(height: 10),
-                genreProvider.isLoading
-                    ? Container(
-                        height: 80,
-                        width: 30,
-                        child: Center(
-                            child: CircularProgressIndicator(
-                          color: Theme.of(context).accentColor,
-                        )),
-                      )
-                    : SizedBox(),
+                const SizedBox(height: 10),
+                if (genreProvider.isLoading)
+                  Container(
+                    height: 80,
+                    width: 30,
+                    child: Center(
+                        child: CircularProgressIndicator(
+                      color: Theme.of(context).accentColor,
+                    )),
+                  )
+                else
+                  const SizedBox(),
               ],
             ),
           );

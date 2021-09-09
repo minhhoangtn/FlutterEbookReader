@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MyErrorWidget extends StatelessWidget {
   final VoidCallback onRefresh;
 
-  MyErrorWidget({required this.onRefresh});
+  const MyErrorWidget({required this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -23,18 +23,18 @@ class MyErrorWidget extends StatelessWidget {
             ),
             RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(children: [
+                text: const TextSpan(children: [
                   TextSpan(
                       text: 'May be some connection errors occurred',
                       style: TextStyle(fontSize: 20)),
                   TextSpan(text: ' 😴', style: TextStyle(fontSize: 25)),
                 ])),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   primary: Theme.of(context).accentColor),
               onPressed: onRefresh,
-              child: Text(
+              child: const Text(
                 'LOAD AGAIN',
                 style: TextStyle(color: Colors.black87),
               ),

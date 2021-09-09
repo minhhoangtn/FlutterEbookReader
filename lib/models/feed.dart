@@ -51,109 +51,123 @@ class Feed {
   });
 
   Feed.fromJson(Map<String, dynamic> json) {
-    xmlLang = json['xml:lang'];
+    xmlLang = json['xml:lang'] as String?;
 
-    xmlns = json['xmlns'];
+    xmlns = json['xmlns'] as String?;
 
-    xmlnsDcterms = json['xmlns\$dcterms'];
+    xmlnsDcterms = json['xmlns\$dcterms'] as String?;
 
-    xmlnsThr = json['xmlns\$thr'];
+    xmlnsThr = json['xmlns\$thr'] as String?;
 
-    xmlnsApp = json['xmlns\$app'];
+    xmlnsApp = json['xmlns\$app'] as String?;
 
-    xmlnsOpensearch = json['xmlns\$opensearch'];
+    xmlnsOpensearch = json['xmlns\$opensearch'] as String?;
 
-    xmlnsOpds = json['xmlns\$opds'];
+    xmlnsOpds = json['xmlns\$opds'] as String?;
 
-    xmlnsXsi = json['xmlns\$xsi'];
+    xmlnsXsi = json['xmlns\$xsi'] as String?;
 
-    xmlnsOdl = json['xmlns\$odl'];
+    xmlnsOdl = json['xmlns\$odl'] as String?;
 
-    xmlnsSchema = json['xmlns\$schema'];
+    xmlnsSchema = json['xmlns\$schema'] as String?;
 
-    xmlnsOpf = json['xmlns\$opf'];
+    xmlnsOpf = json['xmlns\$opf'] as String?;
 
-    id = json['id'] == null ? null : Id.fromJson(json['id']);
+    id = json['id'] == null
+        ? null
+        : Id.fromJson(json['id'] as Map<String, dynamic>);
 
-    title = json['title'] == null ? null : Id.fromJson(json['title']);
+    title = json['title'] == null
+        ? null
+        : Id.fromJson(json['title'] as Map<String, dynamic>);
 
-    updated = json['updated'] == null ? null : Id.fromJson(json['updated']);
+    updated = json['updated'] == null
+        ? null
+        : Id.fromJson(json['updated'] as Map<String, dynamic>);
 
-    icon = json['icon'] == null ? null : Id.fromJson(json['icon']);
+    icon = json['icon'] == null
+        ? null
+        : Id.fromJson(json['icon'] as Map<String, dynamic>);
 
-    author = json['author'] == null ? null : Author.fromJson(json['author']);
+    author = json['author'] == null
+        ? null
+        : Author.fromJson(json['author'] as Map<String, dynamic>);
 
     if (json['link'] != null) {
-      String t = json['link'].runtimeType.toString();
+      final String t = json['link'].runtimeType.toString();
       if (t == 'List<dynamic>' || t == '_GrowableList<dynamic>') {
         link = [];
         json['link'].forEach((v) {
-          link?.add(Link.fromJson(v));
+          link?.add(Link.fromJson(v as Map<String, dynamic>));
         });
       } else {
         link = [];
-        link?.add(Link.fromJson(json['link']));
+        link?.add(Link.fromJson(json['link'] as Map<String, dynamic>));
       }
     }
 
     opensearchTotalResults = json['opensearch\$totalResults'] == null
         ? null
-        : Id.fromJson(json['opensearch\$totalResults']);
+        : Id.fromJson(json['opensearch\$totalResults'] as Map<String, dynamic>);
 
     opensearchStartIndex = json['opensearch\$startIndex'] == null
         ? null
-        : Id.fromJson(json['opensearch\$startIndex']);
+        : Id.fromJson(json['opensearch\$startIndex'] as Map<String, dynamic>);
 
     opensearchItemsPerPage = json['opensearch\$itemsPerPage'] == null
         ? null
-        : Id.fromJson(json['opensearch\$itemsPerPage']);
+        : Id.fromJson(json['opensearch\$itemsPerPage'] as Map<String, dynamic>);
 
     if (json['entry'] != null) {
-      String t = json['entry'].runtimeType.toString();
+      final String t = json['entry'].runtimeType.toString();
       if (t == 'List<dynamic>' || t == '_GrowableList<dynamic>') {
         entry = [];
         json['entry'].forEach((v) {
-          entry?.add(Entry.fromJson(v));
+          entry?.add(Entry.fromJson(v as Map<String, dynamic>));
         });
       } else {
         entry = [];
-        entry?.add(Entry.fromJson(json['entry']));
+        entry?.add(Entry.fromJson(json['entry'] as Map<String, dynamic>));
       }
     }
   }
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> data = {};
-    data['xml:lang'] = this.xmlLang;
-    data['xmlns'] = this.xmlns;
-    data['xmlns\$dcterms'] = this.xmlnsDcterms;
-    data['xmlns\$thr'] = this.xmlnsThr;
-    data['xmlns\$app'] = this.xmlnsApp;
-    data['xmlns\$opensearch'] = this.xmlnsOpensearch;
-    data['xmlns\$opds'] = this.xmlnsOpds;
-    data['xmlns\$xsi'] = this.xmlnsXsi;
-    data['xmlns\$odl'] = this.xmlnsOdl;
-    data['xmlns\$schema'] = this.xmlnsSchema;
-    data['xmlns\$opf'] = this.xmlnsOpf;
+    final Map<String, dynamic> data = {};
+    data['xml:lang'] = xmlLang;
+    data['xmlns'] = xmlns;
+    data['xmlns\$dcterms'] = xmlnsDcterms;
+    data['xmlns\$thr'] = xmlnsThr;
+    data['xmlns\$app'] = xmlnsApp;
+    data['xmlns\$opensearch'] = xmlnsOpensearch;
+    data['xmlns\$opds'] = xmlnsOpds;
+    data['xmlns\$xsi'] = xmlnsXsi;
+    data['xmlns\$odl'] = xmlnsOdl;
+    data['xmlns\$schema'] = xmlnsSchema;
+    data['xmlns\$opf'] = xmlnsOpf;
 
-    if (this.id != null) data['id'] = this.id!.toJson();
-    if (this.title != null) data['title'] = this.title!.toJson();
-    if (this.updated != null) data['updated'] = this.updated!.toJson();
-    if (this.icon != null) data['icon'] = this.icon!.toJson();
+    if (id != null) data['id'] = id!.toJson();
+    if (title != null) data['title'] = title!.toJson();
+    if (updated != null) data['updated'] = updated!.toJson();
+    if (icon != null) data['icon'] = icon!.toJson();
 
-    if (this.author != null) data['author'] = this.author!.toJson();
+    if (author != null) data['author'] = author!.toJson();
 
-    if (this.link != null) data['link'] = link!.map((e) => e.toJson()).toList();
+    if (link != null) data['link'] = link!.map((e) => e.toJson()).toList();
 
-    if (this.opensearchItemsPerPage != null)
-      data['opensearch\$totalResults'] = this.opensearchTotalResults!.toJson();
-    if (this.opensearchStartIndex != null)
-      data['opensearch\$startIndex'] = this.opensearchStartIndex!.toJson();
-    if (this.opensearchItemsPerPage != null)
-      data['opensearch\$itemsPerPage'] = this.opensearchItemsPerPage!.toJson();
+    if (opensearchItemsPerPage != null) {
+      data['opensearch\$totalResults'] = opensearchTotalResults!.toJson();
+    }
+    if (opensearchStartIndex != null) {
+      data['opensearch\$startIndex'] = opensearchStartIndex!.toJson();
+    }
+    if (opensearchItemsPerPage != null) {
+      data['opensearch\$itemsPerPage'] = opensearchItemsPerPage!.toJson();
+    }
 
-    if (this.entry != null)
-      data['entry'] = this.entry!.map((e) => e.toJson()).toList();
+    if (entry != null) {
+      data['entry'] = entry!.map((e) => e.toJson()).toList();
+    }
 
     return data;
   }

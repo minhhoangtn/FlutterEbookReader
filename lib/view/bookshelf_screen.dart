@@ -21,7 +21,7 @@ class _BookshelfScreenState extends State<BookshelfScreen> {
     setState(() {
       _isLoading = true;
     });
-    List<Map<String, Object?>> list =
+    final List<Map<String, Object?>> list =
         await DownloadDB.queryAll('download_books');
     setState(() {
       downloadList.addAll(list);
@@ -31,7 +31,7 @@ class _BookshelfScreenState extends State<BookshelfScreen> {
 
   Future<void> removeDownloadItem(String id, String path) async {
     await DownloadDB.delete('download_books', id);
-    File bookFile = File(path);
+    final File bookFile = File(path);
     if (await bookFile.exists()) bookFile.delete();
 
     setState(() {
@@ -50,7 +50,7 @@ class _BookshelfScreenState extends State<BookshelfScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'My BookShelf',
           style: TextStyle(fontSize: 25),
         ),
@@ -78,12 +78,12 @@ class _BookshelfScreenState extends State<BookshelfScreen> {
     );
   }
 
-  _buildBookShelf() {
+  GridView _buildBookShelf() {
     return GridView.builder(
         itemCount: downloadList.length,
         shrinkWrap: true,
-        padding: EdgeInsets.only(top: 15, left: 10, right: 10),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           childAspectRatio: 200 / 365,
         ),
@@ -99,10 +99,9 @@ class _BookshelfScreenState extends State<BookshelfScreen> {
                         themeColor: Theme.of(context).accentColor,
                         scrollDirection: EpubScrollDirection.VERTICAL,
                         nightMode: true,
-                        enableTts: false,
                         allowSharing: true,
                       );
-                      EpubViewer.open(downloadList[index]['path']);
+                      EpubViewer.open(downloadList[index]['path'] as String);
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(
@@ -112,7 +111,7 @@ class _BookshelfScreenState extends State<BookshelfScreen> {
                         child: CachedNetworkImage(
                           height: 150,
                           width: 100,
-                          imageUrl: downloadList[index]['imageUrl'],
+                          imageUrl: downloadList[index]['imageUrl'] as String,
                           placeholder: (context, url) => Center(
                               child: CircularProgressIndicator(
                                   color: Theme.of(context).accentColor)),
@@ -124,22 +123,18 @@ class _BookshelfScreenState extends State<BookshelfScreen> {
                     ),
                   ),
                   AnimatedOpacity(
-                    duration: Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 200),
                     opacity: _editMode ? 1.0 : 0.0,
                     child: SizedBox(
                       height: 20,
                       width: 20,
                       child: ElevatedButton(
-                        child: Icon(
-                          Icons.remove,
-                          size: 15,
-                        ),
                         onPressed: () {
                           if (_editMode) {
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
-                                      content: Text(
+                                      content: const Text(
                                         'Delete this book ?',
                                         style: TextStyle(fontSize: 20),
                                       ),
@@ -147,8 +142,10 @@ class _BookshelfScreenState extends State<BookshelfScreen> {
                                         TextButton(
                                             onPressed: () async {
                                               await removeDownloadItem(
-                                                  downloadList[index]['id'],
-                                                  downloadList[index]['path']);
+                                                  downloadList[index]['id']
+                                                      as String,
+                                                  downloadList[index]['path']
+                                                      as String);
                                               Navigator.of(context).pop();
                                             },
                                             child: Text(
@@ -176,17 +173,21 @@ class _BookshelfScreenState extends State<BookshelfScreen> {
                         style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.zero,
                           primary: Colors.red,
-                          shape: CircleBorder(),
+                          shape: const CircleBorder(),
+                        ),
+                        child: const Icon(
+                          Icons.remove,
+                          size: 15,
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
-                downloadList[index]['title'],
-                style: TextStyle(fontWeight: FontWeight.bold),
+                downloadList[index]['title'] as String,
+                style: const TextStyle(fontWeight: FontWeight.bold),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
@@ -196,12 +197,12 @@ class _BookshelfScreenState extends State<BookshelfScreen> {
         });
   }
 
-  _buildEmpty() {
+  Center _buildEmpty() {
     return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           height: 200,
           width: 300,
           child: Image.asset(
@@ -209,7 +210,7 @@ class _BookshelfScreenState extends State<BookshelfScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        Container(
+        const SizedBox(
           width: 300,
           child: Text(
             'There is nothing here, please add some books to your shelf 😩',

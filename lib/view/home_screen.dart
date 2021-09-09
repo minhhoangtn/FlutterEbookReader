@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
         });
   }
 
-  _buildBodyBuilder(HomeProvider homeProvider, BuildContext context) {
+  Scaffold _buildBodyBuilder(HomeProvider homeProvider, BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -45,31 +45,31 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  _buildBodyChild(HomeProvider homeProvider) {
+  ListView _buildBodyChild(HomeProvider homeProvider) {
     return ListView(children: [
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
       _buildTitle('Best Selling'),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
       _buildPopularBook(homeProvider),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
       _buildTitle('Categories'),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
       _buildGenres(homeProvider),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
       _buildTitle('Recently Added'),
-      SizedBox(height: 15),
+      const SizedBox(height: 15),
       _buildNewRelease(homeProvider),
     ]);
   }
 
-  _buildNewRelease(HomeProvider homeProvider) {
+  ListView _buildNewRelease(HomeProvider homeProvider) {
     return ListView.builder(
         shrinkWrap: true,
         primary: false,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: homeProvider.recent.entry?.length ?? 0,
         itemBuilder: (BuildContext context, int index) {
-          Entry entry = homeProvider.recent.entry![index];
+          final Entry entry = homeProvider.recent.entry![index];
           return BookDetailCard(
             entry: entry,
             imageUrl: entry.link![1].href!,
@@ -80,17 +80,17 @@ class HomeScreen extends StatelessWidget {
         });
   }
 
-  _buildGenres(HomeProvider homeProvider) {
+  Container _buildGenres(HomeProvider homeProvider) {
     return Container(
       height: 50,
       child: ListView.builder(
         shrinkWrap: true,
-        padding: EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         scrollDirection: Axis.horizontal,
         itemCount: homeProvider.top.link?.length ?? 0,
         itemBuilder: (BuildContext context, int index) {
-          Link link = homeProvider.top.link![index];
-          if (index < 10) return SizedBox();
+          final Link link = homeProvider.top.link![index];
+          if (index < 10) return const SizedBox();
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
             child: Container(
@@ -108,7 +108,7 @@ class HomeScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     link.title!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                     ),
                   ),
@@ -121,30 +121,30 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  _buildTitle(String title) {
+  Padding _buildTitle(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
           Text(
             title,
-            style: TextStyle(fontSize: 23),
+            style: const TextStyle(fontSize: 23),
           )
         ],
       ),
     );
   }
 
-  _buildPopularBook(HomeProvider homeProvider) {
+  Container _buildPopularBook(HomeProvider homeProvider) {
     return Container(
       height: 200,
       child: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: homeProvider.top.entry?.length ?? 0,
         itemBuilder: (BuildContext context, int index) {
-          Entry entry = homeProvider.top.entry![index];
+          final Entry entry = homeProvider.top.entry![index];
           return BookCard(
             entry: entry,
             imageUrl: entry.link![1].href!,

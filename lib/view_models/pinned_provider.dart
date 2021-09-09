@@ -6,7 +6,8 @@ class PinnedProvider with ChangeNotifier {
 
   Future<void> getPinnedList() async {
     pinnedList.clear();
-    List<Map<String, Object?>> list = await PinnedDB.queryAll('favorite_books');
+    final List<Map<String, Object?>> list =
+        await PinnedDB.queryAll('favorite_books');
     pinnedList.addAll(list);
     notifyListeners();
   }

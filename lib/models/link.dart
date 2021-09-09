@@ -18,24 +18,24 @@ class Link {
   });
 
   Link.fromJson(Map<String, dynamic> json) {
-    rel = json['rel'];
-    title = json['title'];
-    type = json['type'];
-    href = json['href'];
-    opdsFacetGroup = json['opds:facetGroup'];
-    opdsActiveFacet = json['opds:activeFacet'];
-    thrCount = json['thr:count'];
+    rel = json['rel'] as String?;
+    title = json['title'] as String?;
+    type = json['type'] as String?;
+    href = json['href'] as String?;
+    opdsFacetGroup = json['opds:facetGroup'] as String?;
+    opdsActiveFacet = json['opds:activeFacet'] as String?;
+    thrCount = json['thr:count'] as String?;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    data['rel'] = this.rel;
-    data['type'] = this.type;
-    data['href'] = this.href;
-    data['title'] = this.title;
-    data['opds:activeFacet'] = this.opdsActiveFacet;
-    data['opds:facetGroup'] = this.opdsFacetGroup;
-    data['thr:count'] = this.thrCount;
+    data['rel'] = rel;
+    data['type'] = type;
+    data['href'] = href;
+    data['title'] = title;
+    data['opds:activeFacet'] = opdsActiveFacet;
+    data['opds:facetGroup'] = opdsFacetGroup;
+    data['thr:count'] = thrCount;
     return data;
   }
 }

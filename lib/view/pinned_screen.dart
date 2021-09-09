@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
-
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -20,7 +18,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Reading Later',
           style: TextStyle(fontSize: 25),
         ),
@@ -29,12 +27,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         future:
             Provider.of<PinnedProvider>(context, listen: false).getPinnedList(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting)
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(
                 color: Theme.of(context).accentColor,
               ),
             );
+          }
           return Consumer<PinnedProvider>(
               builder: (context, pinnedProvider, child) {
             return pinnedProvider.pinnedList.isEmpty
@@ -46,14 +45,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  _buildPinnedList(PinnedProvider pinnedProvider) {
+  ListView _buildPinnedList(PinnedProvider pinnedProvider) {
     return ListView.separated(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      separatorBuilder: (context, index) => Divider(),
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      separatorBuilder: (context, index) => const Divider(),
       itemCount: pinnedProvider.pinnedList.length,
       itemBuilder: (context, index) {
-        Entry entry = Entry.fromJson(
-            jsonDecode(pinnedProvider.pinnedList[index]['entry']));
+        final Entry entry = Entry.fromJson(
+            jsonDecode(pinnedProvider.pinnedList[index]['entry'] as String)
+                as Map<String, dynamic>);
         return InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -64,9 +64,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             direction: DismissDirection.endToStart,
             background: Container(
               alignment: Alignment.centerRight,
-              padding: EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(right: 20),
               color: Colors.red,
-              child: Icon(
+              child: const Icon(
                 Icons.delete,
                 color: Colors.white,
               ),
@@ -77,7 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             confirmDismiss: (direction) => showDialog<bool>(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
-                      content: Text(
+                      content: const Text(
                         'Are you sure 😑',
                         style: TextStyle(fontSize: 20),
                       ),
@@ -107,7 +107,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Padding(
               padding: const EdgeInsets.only(right: 15, left: 15),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
@@ -133,7 +132,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       width: 80,
                     ),
                   ),
-                  SizedBox(width: 15),
+                  const SizedBox(width: 15),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,10 +141,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           entry.title!.t!,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
-                        Divider(),
+                        const Divider(),
                         Text(
                           entry.author!.name!.t!,
                           maxLines: 2,
@@ -167,7 +166,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  _buildEmpty() {
+  Center _buildEmpty() {
     return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -182,7 +181,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         Container(
           width: 300,
-          child: Text(
+          child: const Text(
             'Oops ! You have read all pinned books, please add more 🙄',
             style: TextStyle(fontSize: 20),
             maxLines: 2,

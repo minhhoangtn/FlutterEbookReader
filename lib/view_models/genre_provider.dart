@@ -31,13 +31,12 @@ class GenreProvider with ChangeNotifier {
     notifyListeners();
     setApiRequestStatus(APIRequestStatus.loading);
     try {
-      Feed firstFeed = await api.getCategory(url);
+      final Feed firstFeed = await api.getCategory(url);
       items = firstFeed.entry!;
       addControllerListener(url);
       notifyListeners();
       setApiRequestStatus(APIRequestStatus.loaded);
     } catch (e) {
-      print(e);
       setApiRequestStatus(APIRequestStatus.error);
     }
   }
@@ -55,18 +54,16 @@ class GenreProvider with ChangeNotifier {
     if (apiRequestStatus != APIRequestStatus.loading &&
         !isLoading &&
         pageRemaining) {
-      Timer(Duration(milliseconds: 100), () {
+      Timer(const Duration(milliseconds: 100), () {
         scrollController.animateTo(scrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 100), curve: Curves.linear);
+            duration: const Duration(milliseconds: 100), curve: Curves.linear);
       });
       //jump to bottom of list
       isLoading = true;
       page = page + 1;
       notifyListeners();
-      print(page);
-      print(url);
 
-      Feed nextFeed = await api.getCategory(url + '&page=$page');
+      final Feed nextFeed = await api.getCategory('$url${'&page=$page'}');
       if (nextFeed.entry?[0] == null) {
         pageRemaining = false;
         isLoading = false;

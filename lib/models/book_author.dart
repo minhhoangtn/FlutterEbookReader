@@ -1,29 +1,32 @@
 import 'package:ebook_reader/models/id.dart';
 
-class Author {
+class BookAuthor {
   Id? name;
   Id? uri;
-  Id? email;
 
-  Author({this.name, this.uri, this.email});
+  BookAuthor({this.name, this.uri});
 
-  Author.fromJson(Map<String, dynamic> json) {
+  BookAuthor.fromJson(Map<String, dynamic> json) {
     name = json['name'] == null
         ? null
         : Id.fromJson(json['name'] as Map<String, dynamic>);
     uri = json['uri'] == null
         ? null
         : Id.fromJson(json['uri'] as Map<String, dynamic>);
-    email = json['email'] == null
+  }
+  BookAuthor.fromJsonList(List<dynamic> json) {
+    name = json[0]['name'] == null
         ? null
-        : Id.fromJson(json['email'] as Map<String, dynamic>);
+        : Id.fromJson(json[0]['name'] as Map<String, dynamic>);
+    uri = json[0]['uri'] == null
+        ? null
+        : Id.fromJson(json[0]['uri'] as Map<String, dynamic>);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
     if (name != null) data['name'] = name!.toJson();
     if (uri != null) data['uri'] = uri!.toJson();
-    if (email != null) data['email'] = email!.toJson();
     return data;
   }
 }

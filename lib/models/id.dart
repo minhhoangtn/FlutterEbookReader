@@ -4,7 +4,7 @@ class Id {
   Id(this.t);
 
   Id.fromJson(Map<String, dynamic> json) {
-    t = json['\$t'];
+    t = json['\$t'] as String?;
   }
 
   Map<String, dynamic> toJson() => {
