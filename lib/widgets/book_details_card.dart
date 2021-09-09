@@ -29,12 +29,12 @@ class BookDetailCard extends StatelessWidget {
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-        child: Container(
+        child: SizedBox(
           height: 160,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: 160,
                 width: 130,
                 child: Card(

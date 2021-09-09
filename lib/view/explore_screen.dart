@@ -29,7 +29,7 @@ class ExploreScreen extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final Link link = homeProvider.top.link![index];
                 if (index == 0) {
-                  return Container(
+                  return SizedBox(
                     height: 250,
                     child: Image.asset(
                       'images/explore.png',
@@ -79,14 +79,14 @@ class ExploreScreen extends StatelessWidget {
                             if (snapshot.connectionState ==
                                     ConnectionState.waiting ||
                                 snapshot.hasError) {
-                              return Container(
+                              return SizedBox(
                                   height: 200,
                                   child: Center(
                                       child: CircularProgressIndicator(
                                     color: Theme.of(context).accentColor,
                                   )));
                             } else {
-                              return Container(
+                              return SizedBox(
                                 height: 200,
                                 child: ListView.builder(
                                     shrinkWrap: true,

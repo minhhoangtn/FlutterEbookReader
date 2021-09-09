@@ -80,8 +80,8 @@ class HomeScreen extends StatelessWidget {
         });
   }
 
-  Container _buildGenres(HomeProvider homeProvider) {
-    return Container(
+  SizedBox _buildGenres(HomeProvider homeProvider) {
+    return SizedBox(
       height: 50,
       child: ListView.builder(
         shrinkWrap: true,
@@ -135,8 +135,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Container _buildPopularBook(HomeProvider homeProvider) {
-    return Container(
+  SizedBox _buildPopularBook(HomeProvider homeProvider) {
+    return SizedBox(
       height: 200,
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 15),

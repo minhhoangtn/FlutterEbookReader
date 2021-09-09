@@ -13,7 +13,7 @@ class MyErrorWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               height: 200,
               width: 300,
               child: Image.asset(

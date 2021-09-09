@@ -141,12 +141,14 @@ class _BookshelfScreenState extends State<BookshelfScreen> {
                                       actions: [
                                         TextButton(
                                             onPressed: () async {
-                                              await removeDownloadItem(
-                                                  downloadList[index]['id']
-                                                      as String,
-                                                  downloadList[index]['path']
-                                                      as String);
-                                              Navigator.of(context).pop();
+                                              removeDownloadItem(
+                                                      downloadList[index]['id']
+                                                          as String,
+                                                      downloadList[index]
+                                                          ['path'] as String)
+                                                  .then((value) =>
+                                                      Navigator.of(context)
+                                                          .pop());
                                             },
                                             child: Text(
                                               'Yes',

@@ -60,7 +60,7 @@ class _GenreScreenState extends State<GenreScreen> {
                 ),
                 const SizedBox(height: 10),
                 if (genreProvider.isLoading)
-                  Container(
+                  SizedBox(
                     height: 80,
                     width: 30,
                     child: Center(

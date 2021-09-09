@@ -60,7 +60,7 @@ class _DownloadDialogState extends State<DownloadDialog> {
                 style: TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 20),
-              Container(
+              SizedBox(
                 height: 5,
                 child: LinearProgressIndicator(
                   value: double.parse(progress) / 100,

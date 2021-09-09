@@ -14,7 +14,7 @@ class BookCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: Container(
+      child: SizedBox(
         width: 140,
         child: InkWell(
           onTap: () {

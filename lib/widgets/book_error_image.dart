@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class BookErrorImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: double.infinity,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),

@@ -88,7 +88,9 @@ class DetailsProvider with ChangeNotifier {
           ? await getExternalStorageDirectory()
           : await getApplicationDocumentsDirectory();
 
-      final String externalStoragePath = appDirectory!.path.split('Android')[0];
+      if (appDirectory == null) return;
+
+      final String externalStoragePath = appDirectory.path.split('Android')[0];
       if (Platform.isAndroid) {
         Directory(path.join(externalStoragePath, 'EbookReaderFlutter'))
             .createSync();
@@ -99,22 +101,22 @@ class DetailsProvider with ChangeNotifier {
               externalStoragePath, 'EbookReaderFlutter', '$bookName.epub')
           : path.join(appDirectory.path, '$bookName.epub');
 
-      showDialog(
+      Future.delayed(Duration.zero).then((value) => showDialog(
               barrierDismissible: false,
               context: context,
-              builder: (context) => DownloadDialog(url: url, appPath: bookPath))
-          .then((value) {
-        if (value != null) {
-          addDownload({
-            'id': entry.id!.t!.toString(),
-            'path': bookPath,
-            'size': value as int,
-            'imageUrl': entry.link![1].href!.toString(),
-            'title': entry.title!.t!.toString(),
-            'author': entry.author!.name!.t!.toString(),
-          });
-        }
-      });
+              builder: (context) =>
+                  DownloadDialog(url: url, appPath: bookPath)).then((value) {
+            if (value != null) {
+              addDownload({
+                'id': entry.id!.t!.toString(),
+                'path': bookPath,
+                'size': value as int,
+                'imageUrl': entry.link![1].href!.toString(),
+                'title': entry.title!.t!.toString(),
+                'author': entry.author!.name!.t!.toString(),
+              });
+            }
+          }));
     }
   }
 

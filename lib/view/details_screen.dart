@@ -151,7 +151,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           if (widget.entry.category == null)
             const SizedBox()
           else
-            Container(
+            SizedBox(
               height: widget.entry.category!.length < 3 ? 50 : 90,
               child: GridView.builder(
                   itemCount: widget.entry.category!.length > 4
@@ -232,7 +232,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 40,
                       child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
@@ -256,7 +256,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 : Theme.of(context).accentColor,
                           )),
                     ),
-                    Container(
+                    SizedBox(
                       height: 40,
                       child: OutlinedButton(
                           style: OutlinedButton.styleFrom(

@@ -112,7 +112,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     borderRadius: BorderRadius.circular(10),
                     child: CachedNetworkImage(
                       imageUrl: entry.link![1].href!,
-                      placeholder: (context, url) => Container(
+                      placeholder: (context, url) => SizedBox(
                         height: 80,
                         width: 80,
                         child: Center(
@@ -171,7 +171,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           height: 200,
           width: 300,
           child: Image.asset(
@@ -179,9 +179,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        Container(
+        const SizedBox(
           width: 300,
-          child: const Text(
+          child: Text(
             'Oops ! You have read all pinned books, please add more 🙄',
             style: TextStyle(fontSize: 20),
             maxLines: 2,
